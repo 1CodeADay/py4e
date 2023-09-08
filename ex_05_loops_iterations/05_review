@@ -1,0 +1,20 @@
+Loops and iteration#
+- Indefinite loop: (while, break, continue) statement / boolean
+- Definite loop: (for, in) statement
+- Counting in a loop
+- Finding the average in a loop
+- Filtering in a loop
+- None type : to be used on boolean and Note type
+-Iteration variables
+-Loop idioms
+
+Updating variables
+# This is an infinite loop
+n = 10
+while True:
+    print(n, end=' ')
+    n = n - 1
+print('Done!')
+
+### Debugging
+We don't want to do that line by line. We can can by bisection instead.
