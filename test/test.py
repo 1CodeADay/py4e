@@ -1,3 +1,5 @@
+
+
 # x = "banana"
 # print(len(x))
 
@@ -14,7 +16,7 @@
 #     print(letter)
     
 
-greet = 'Hello Bob'
-var = greet.casefold()
-print(var)
-print(greet)
+# greet = 'Hello Bob'
+# var = greet.casefold()
+# print(var)
+# print(greet)
