@@ -59,7 +59,3 @@ while True:
 
 print("Maximum is", int(largest))
 print("Minimum is", smallest)
-    
-    
-    
-  
