@@ -1,0 +1,84 @@
+A list is a sequence
+
+#Like a string, a list is a sequence of values. In a string, the values are characters; 
+	in a list, they can be any type. The values in list are called elements or sometimes items.
+	Lists are mutable
+	List indices work the same way as string indices:
+	Any integer expression can be used as an index.
+
+If you try to read or write an element that does not exist, you get an IndexError.
+
+If an index has a negative value, it counts backward from the end of the list.
+The in operator also works on lists.
+
+#Traversing a list with a for loop
+	But if you want to write or update the elements, you need the indices. 
+	A common way to do that is to combine the functions range and len:
+#List operations
+	-The + operator concatenates lists:
+	-Similarly, the * operator repeats a list a given number of times:
+#List slices operator also works on lists:
+	Since lists are mutable, it is often useful to make a copy before performing 
+	operations that fold, spindle, or mutilate lists.
+#List methods
+	-append adds a new element to the end of a list:
+	-extend takes a list as an argument and appends all of the elements:
+	-sort arranges the elements of the list from low to high:
+	-Most list methods are void; they modify the list and return None. 
+	If you accidentally write t = t.sort(), you will be disappointed with the result.
+#Deleting elements
+	- If you know the index of the element you want, you can use pop:
+	- If you don’t provide an index, it deletes and returns the last element.
+	- If you don’t need the removed value, you can use the del statement:
+	- If you know the element you want to remove (but not the index), you can use remove:
+	- To remove more than one element, you can use del with a slice index:
+#Lists and functions
+	- len, max, min sum, 
+	- The sum() function only works when the list elements are numbers. 
+	- The other functions (max(), len(), etc.) work with lists of strings and other types that can be comparable.
+#Lists and strings
+	- A string is a sequence of characters and a list is a sequence of values, but a list of characters is not the same as a string. 
+	To convert from a string to a list of characters, you can use list:
+	- The list function breaks a string into individual letters. t = list(s)
+	- If you want to break a string into words, you can use the split method: t = s.split()
+	- JOIN is the inverse of split. It takes a list of strings and concatenates the elements. 
+	join is a string method, so you have to invoke it on the delimiter and pass the list as a parameter: delimiter = ' ' >>> delimiter.join(t)
+#Objects and values
+	a = 'banana'
+	b = 'banana'      a b = 'banana'
+	In one case, a and b refer to two different objects that have the same value. In the second case, they refer to the same object.
+	>>> a = [1, 2, 3]
+	>>> b = [1, 2, 3]
+	In this case we would say that the two lists are equivalent, because they have the same elements, but not identical, 
+	because they are not the same object. If two objects are identical, they are also equivalent, 
+	but if they are equivalent, they are not necessarily identical.
+#Aliasing
+	The association of a variable with an object is called a reference. In this example, there are two references to the same object.
+	If the aliased object is mutable, changes made with one alias affect the other:
+#List argument 
+For example, the append method modifies a list, but the + operator creates a new list
+#Debugging
+1.Don’t forget that most list methods modify the argument and return None. 
+2.Pick an idiom and stick with it.
+3.Make copies to avoid aliasing.
+4.Lists, split, and files
+
+
+
+	
+
+
+
+	
+
+
+
+
+
+
+
+
+
+ 
+
+
