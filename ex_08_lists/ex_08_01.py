@@ -12,7 +12,7 @@ chop_list = chop(my_list)
 print(my_list)
 print(chop_list)
 
-
+>>>>>>
 
 # def middle(lst):
 #     new = lst[1:]

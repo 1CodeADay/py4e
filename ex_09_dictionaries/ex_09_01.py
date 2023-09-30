@@ -74,3 +74,5 @@ for line in fhand:
         count += 1
 print(dictio)
 print(count)
+
+>>>>>>>
