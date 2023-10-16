@@ -1,0 +1,134 @@
+# Chapter 10: Tuples
+
+# **Tuples are immutable.**
+# Syntactically, a tuple is a comma-separated list of values:
+# To create a tuple with a single element, you have to include the final comma: t1 = ('a',)
+# *singleton: A list (or other sequence) with a single element.*
+
+# If you try to modify one of the elements of the tuple, you get an error:
+
+# >>> t[0] = 'A'
+# TypeError: object doesn't support item assignment
+
+# You can’t modify the elements of a tuple, but you can replace one tuple with another:
+
+# >>> t = ('A',) + t[1:]
+# >>> print(t)
+# ('A', 'b', 'c', 'd', 'e')
+
+# **Comparing tuples**
+# The comparison operators work with tuples and other sequences. 
+# Python starts by comparing the first element from each sequence. 
+# If they are equal, it goes on to the next element, and so on, until it finds elements that differ. 
+
+# For example, suppose you have a list of words and you want to sort them from longest to shortest:
+
+#     # txt = 'but soft what light in yonder window breaks'
+#     # words = txt.split()
+#     # t = list()
+#     # for word in words:
+#     #     t.append((len(word), word))
+
+#     # t.sort(reverse=True)
+
+#     # res = list()
+#     # for length, word in t:
+#     #     res.append(word)
+
+#     # print(res)
+
+# The first loop builds a list of tuples, where each tuple is a word preceded by its length.
+# The second loop traverses the list of tuples and builds a list of words in descending order of length. 
+
+# **Tuple assignment**
+# One of the unique syntactic features of the Python language is the ability to have a tuple on the left side and a sequence on the right side
+# >>> m = [ 'have', 'fun' ]
+# >>> x, y = m
+
+# >>> x = m[0]
+# >>> y = m[1]
+
+# >>> (x, y) = m
+
+# The number of variables on the left and the number of values on the right must be the same:
+
+# >>> a, b = 1, 2, 3
+# ValueError: too many values to unpack
+
+# More generally, the right side can be any kind of sequence (string, list, or tuple).
+# >>> addr = 'monty@python.org'
+# >>> uname, domain = addr.split('@')
+
+# **Dictionaries and tuples**
+# Dictionaries have a method called items that returns a list of tuples
+# >>> d = {'b':1, 'a':10, 'c':22}
+# >>> t = list(d.items())
+# >>> print(t)
+# [('b', 1), ('a', 10), ('c', 22)]
+
+
+# **Multiple assignment with dictionaries**
+# Combining items, tuple assignment, and for, you can see a nice code pattern
+# >>> d = {'a':10, 'b':1, 'c':22}
+# >>> l = list()
+# >>> for key, val in d.items() :
+# ...     l.append( (val, key) )
+# >>> l
+# [(10, 'a'), (1, 'b'), (22, 'c')]
+# >>> l.sort(reverse=True)
+# >>> l
+# [(22, 'c'), (10, 'a'), (1, 'b')]
+
+# **The most common words**
+# http://www.py4e.com/code3/count3.py
+
+# **Using tuples as keys in dictionaries**
+# Because tuples are hashable and lists are not, if we want to create a composite key to use in a dictionary we must use a tuple as the key.
+
+# >>> directory[last,first] = number
+# >>> for last, first in directory:
+#     print(first, last, directory[last,first])
+
+
+# **Sequences: strings, lists, and tuples - Oh My!**
+# Lists are more common than tuples, mostly because they are mutable. But there are a few cases where you might prefer tuples:
+
+# - In some contexts, like a return statement, it is syntactically simpler to create a tuple than a list. In other contexts, you might prefer a list.
+
+# - If you want to use a sequence as a dictionary key, you have to use an immutable type like a tuple or string.
+
+# - If you are passing a sequence as an argument to a function, using tuples reduces the potential for unexpected behavior due to aliasing.
+
+# Because tuples are immutable, they don’t provide methods like sort and reverse, which modify existing lists. 
+# However Python provides the built-in functions sorted and reversed,
+
+# **List comprehension**
+
+# Sometimes you want to create a sequence by using data from another sequence. You can achieve this by writing a for loop and appending one item at a time. 
+
+# >>> list_of_ints_in_strings = ['42', '65', '12']
+# >>> list_of_ints = [ int(x) for x in list_of_ints_in_strings ]
+# >>> print(sum(list_of_ints))
+
+# *more detailed* 
+# >>> list_of_ints = []
+# >>> for x in list_of_ints_in_strings:
+# >>>     list_of_ints.append(int(x))
+
+
+# **Debugging**
+
+# Lists, dictionaries and tuples are known generically as data structures; in this chapter we are starting 
+# to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and 
+# lists as values. Compound data structures are useful, but they are prone to what I call shape errors; 
+# that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you 
+# write some code and forget the shape of your data and introduce an error. For example, if you are expecting 
+# a list with one integer and I give you a plain old integer (not in a list), it won’t work.
+
+
+x = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+y = x.items()
+
+print(y)
+
+

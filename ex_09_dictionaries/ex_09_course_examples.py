@@ -98,33 +98,63 @@
 # Arise, fair sun, and kill the envious moon,
 # Who is already sick and pale with grief,
 
-name = input('Enter file:')
-handle = open(name, 'r')
-counts = dict()
+#BIG COUNT
 
-for line in handle:
+# name = input('Enter file:')
+# handle = open(name, 'r')
+# counts = dict()
+
+# for line in handle:
+#     words = line.split()
+#     for word in words:
+#         counts[word] = counts.get(word, 0) + 1
+
+# bigcount = None
+# bigword = None
+# for word, count in list(counts.items()):
+#     if bigcount is None or count > bigcount:
+#         bigword = word
+#         bigcount = count
+
+# print(bigword, bigcount)
+
+
+
+
+
+
+# import string
+
+# string.punctuation
+
+# line = line.translate(line.maketrans('', '', string.punctuation))
+
+
+#Counting Word Frequency using a Dictionary
+
+fname = input('Enter File: ')
+if len(fname) < 1: fname = 'clown.txt'
+fhand = open(fname)
+
+dictio = dict()
+
+
+for line in fhand: 
+    line = line.rstrip()
+    # print(line)
     words = line.split()
+    # print(words)
     for word in words:
-        counts[word] = counts.get(word, 0) + 1
+        print(word)
+        dictio[word] = dictio.get(word,0) + 1
+print(dictio)
 
-bigcount = None
-bigword = None
-for word, count in list(counts.items()):
-    if bigcount is None or count > bigcount:
-        bigword = word
-        bigcount = count
+largest = 0
+theword = None
 
-print(bigword, bigcount)
-
-
-
-
-
-
-import string
-
-string.punctuation
-
-line = line.translate(line.maketrans('', '', string.punctuation))
-
-
+for k,v in dictio.items():
+    print(k,v)
+    if v > largest:
+        largest = v
+        theword = k
+print('done:', theword, largest)

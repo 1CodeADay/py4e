@@ -9,27 +9,27 @@
 # Enter a file name: mbox.txt
 # zqian@umich.edu 195
 
-count = 0
-dictio = dict()
-maximum = 0
-maximum_address = ''
+# count = 0
+# dictio = dict()
+# maximum = 0
+# maximum_address = ''
 
-fhand = open('mbox-short.txt')
-for line in fhand:
-    line = line.rstrip()
-    words = line.split()
-    if len(words) < 2 or words[0] != 'From':
-        continue
-    dictio[words[1]] = dictio.get(words[1], 0) + 1
-    count += 1
+# fhand = open('mbox-short.txt')
+# for line in fhand:
+#     line = line.rstrip()
+#     words = line.split()
+#     if len(words) < 2 or words[0] != 'From':
+#         continue
+#     dictio[words[1]] = dictio.get(words[1], 0) + 1
+#     count += 1
 
-for address in dictio:
-    if dictio[address] > maximum:
-        maximum = dictio[address]
-        maximum_address = address
+# for address in dictio:
+#     if dictio[address] > maximum:
+#         maximum = dictio[address]
+#         maximum_address = address
     
-# print(dictio)
-# print(count)
-print(maximum_address, maximum)
+# # print(dictio)
+# # print(count)
+# print(maximum_address, maximum)
 
 # This was challeging but I am happy I kept on trying. 
