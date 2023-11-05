@@ -1,0 +1,153 @@
+
+# Chapter 12: Network Programming
+
+# Hypertext Transfer Protocol - HTTP
+The simple  network protocol built-in support in Python is called socket.
+A socket is much like a file, except that a single socket provides a two-way connection between two programs. 
+
+A protocol is a set of precise rules that determine who is to go first, what they are to do, and then what the responses are to that message, and who sends next, and so on.
+
+# The world’s simplest web browser
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
+mysock.send(cmd)
+
+while True:
+    data = mysock.recv(512)
+    if len(data) < 1:
+        break
+    print(data.decode(),end='')
+
+mysock.close()
+
+**A Socket Connection**
+Once we send that blank line, we write a loop that receives data in 512-character chunks from the socket and prints the data out until there is no more data to read (i.e., the recv() returns an empty string).
+
+*One of the requirements for using the HTTP protocol is the need to send and receive data as bytes objects, instead of strings. In the preceding example, the encode() and decode() methods convert strings into bytes objects and back again.*
+
+The next example uses b'' notation to specify that a variable should be stored as a bytes object. *encode() and b'' are equivalent.*
+
+# Retrieving an image over HTTP
+
+# <!-- import socket
+# import time
+
+# HOST = 'data.pr4e.org'
+# PORT = 80
+# mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# mysock.connect((HOST, PORT))
+# mysock.sendall(b'GET http://data.pr4e.org/cover3.jpg HTTP/1.0\r\n\r\n')
+# count = 0
+# picture = b""
+
+# while True:
+#     data = mysock.recv(5120)
+#     if len(data) < 1: break
+#     #time.sleep(0.25)
+#     count = count + len(data)
+#     print(len(data), count)
+#     picture = picture + data
+
+# mysock.close()
+
+# # Look for the end of the header (2 CRLF)
+# pos = picture.find(b"\r\n\r\n")
+# print('Header length', pos)
+# print(picture[:pos].decode())
+
+# # Skip past the header and save the picture data
+# picture = picture[pos+4:]
+# fhand = open("stuff.jpg", "wb")
+# fhand.write(picture)
+# fhand.close() -->
+
+# As the program runs, you can see that we don’t get 5120 characters each time we call the recv() method. We get as many characters as have been transferred across the network to us by the web server at the moment we call recv(). In this example, we either get as few as 3200 characters each time we request up to 5120 characters of data.
+
+# # Retrieving web pages with urllib
+
+# Using urllib, you can treat a web page much like a file. You simply indicate which web page you would like to retrieve and urllib handles all of the HTTP protocol and header details.
+
+# <!-- import urllib.request
+
+# fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+# for line in fhand:
+#     print(line.decode().strip()) -->
+
+# Reading binary files using urllib
+
+Sometimes you want to retrieve a non-text (or binary)
+*The pattern is to open the URL and use read to download the entire contents of the document into a string variable (img) then write that information to a local file as follows*
+
+This program reads all of the data in at once across the network and stores it in the variable img in the main memory of your computer, then opens the file cover.jpg and writes the data out to your disk. The wb argument for open() opens a binary file for writing only. This program will work if the size of the file is less than the size of the memory of your computer.
+
+However if this is a large audio or video file, this program may crash or at least run extremely slowly when your computer runs out of memory.
+
+<!-- import urllib.request, urllib.parse, urllib.error
+
+img = urllib.request.urlopen('http://data.pr4e.org/cover3.jpg')
+fhand = open('cover3.jpg', 'wb')
+size = 0
+while True:
+    info = img.read(100000)
+    if len(info) < 1: break
+    size = size + len(info)
+    fhand.write(info)
+
+print(size, 'characters copied.')
+fhand.close() -->
+
+# Parsing HTML and scraping the web
+
+# Parsing HTML using regular expressions
+To be completed in the future. I haven't learned regular expressions yet. 
+
+# Parsing HTML using BeautifulSoup
+
+Information on installing BeautifulSoup with the Python Package Index tool pip is available at:
+
+https://packaging.python.org/tutorials/installing-packages/
+
+We will use urllib to read the page and then use BeautifulSoup to extract the href attributes from the anchor (a) tags.
+
+<!-- # To run this, download the BeautifulSoup zip file
+# http://www.py4e.com/code3/bs4.zip
+# and unzip it in the same directory as this file
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import ssl
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+url = input('Enter - ')
+html = urlopen(url, context=ctx).read()
+soup = BeautifulSoup(html, "html.parser")
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+    # Look at the parts of a tag
+    print('TAG:', tag)
+    print('URL:', tag.get('href', None))
+    print('Contents:', tag.contents[0])
+    print('Attrs:', tag.attrs)
+
+# Code: http://www.py4e.com/code3/urllink2.py -->
+
+# Bonus section for Unix / Linux users
+If you have a Linux, Unix, or Macintosh computer, you probably have commands built in to your operating system that retrieves both plain text and binary files using the HTTP or File Transfer (FTP) protocols. One of these commands is curl:
+
+*$ curl -O http://www.py4e.com/cover.jpg*
+
+The command curl is short for “copy URL” and so the two examples listed earlier to retrieve binary files with urllib are cleverly named curl1.py and curl2.py on www.py4e.com/code3 as they implement similar functionality to the curl command. There is also a curl3.py sample program that does this task a little more effectively, in case you actually want to use this pattern in a program you are writing.
+
+A second command that functions very similarly is wget:
+
+*$ wget http://www.py4e.com/cover.jpg*
+Both of these commands make retrieving webpages and remote files a simple task.

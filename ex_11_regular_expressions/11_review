@@ -1,0 +1,76 @@
+A dictionary is like a list, but more general. In a list, the index positions 
+have to be integers; in a dictionary, the indices can be (almost) any type.
+The function dict creates a new dictionary with no items.
+The curly brackets, {}, represent an empty dictionary. 
+To add items to the dictionary, you can use square brackets:
+
+## Dictionary as a set of counters
+Suppose you are given a string and you want to count how many times each letter appears. 
+There are several ways you could do it:
+- You could create 26 variables,
+- You could create a list with 26 elements
+- You could create a dictionary with characters as keys and counters
+Each of these options performs the same computation, but each of them implements that computation in a different way.
+Dictionaries have a method called get that takes a key and a default value. 
+We can use get to write our histogram loop more concisely. Because the get method automatically handles the case where a key is not in a dictionary, we can reduce four lines down to one and eliminate the if statement.
+
+## Dictionaries and files
+One of the common uses of a dictionary is to count the occurrence of words in a file with some written text.
+You will see that we have two for loops. The outer loop is reading the lines of the file and the inner loop 
+- counts[word] += 1 is equivalent to counts[word] = counts[word] + 1
+
+## Looping and dictionaries
+for key in counts:
+    if counts[key] > 10 :
+- If you want to print the keys in alphabetical order, you first make a list of the keys in the dictionary using the keys method available in dictionary objects, and then sort that list and loop through the sorted list,
+
+## Advanced text parsing : punctuation, capitalization
+We can solve both these problems by using the string methods **lower** , **punctuation**, and **translate**.
+Here is the documentation for translate: *line.translate(str.maketrans(fromstr, tostr, deletestr))*
+
+**Replace the characters in *fromstr* with the character in the same position in *tostr* and delete all characters that are in *deletestr*. The *fromstr* and *tostr* can be empty strings and the deletestr parameter can be omitted.**
+
+**We will not specify the tostr but we will use the deletestr parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers “punctuation”:**
+
+import string
+
+fname = input('Enter the file name: ')
+try:
+    fhand = open(fname)
+except:
+    print('File cannot be opened:', fname)
+    exit()
+
+counts = dict()
+for line in fhand:
+    line = line.rstrip()
+    **line = line.translate(line.maketrans('', '', string.punctuation))**
+    *line = line.lower()*
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print(counts)
+
+## Debugging
+
+**Scale down the input**
+If possible, reduce the size of the dataset. For example if the program reads a text file, start with just the first 10 lines, or with the smallest example you can find. You can either edit the files themselves, or (better) modify the program so it reads only the first n lines.
+
+**Check summaries and types**
+Instead of printing and checking the entire dataset, consider printing summaries of the data: for example, the number of items in a dictionary or the total of a list of numbers.
+A common cause of runtime errors is a value that is not the right type. For debugging this kind of error, it is often enough to print the type of a value.
+
+**Write self-checks**
+*Sanity check*: Sometimes you can write code to check for errors automatically. For example, if you are computing the average of a list of numbers, you could check that the result is not greater than the largest element in the list or less than the smallest. This is called a “sanity check” because it detects results that are “completely illogical”.
+*Consistency check*: Another kind of check compares the results of two different computations to see if they are consistent. 
+
+**Pretty print the output**
+Formatting debugging output can make it easier to spot an error.
+
+
+
+
